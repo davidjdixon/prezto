@@ -62,6 +62,10 @@ function _python-workon-cwd {
   elif [[ "$PROJECT_ROOT" != "." ]]; then
     ENV_NAME="${PROJECT_ROOT:t}"
   fi
+  # update to switch to TVX default env
+  if [[ $ENV_NAME == '$TVX_AWS_VENV' ]]; then
+    ENV_NAME=$TVX_AWS_VENV
+  fi
   if [[ -n $CD_VIRTUAL_ENV && "$ENV_NAME" != "$CD_VIRTUAL_ENV" ]]; then
     # We've just left the repo, deactivate the environment
     # Note: this only happens if the virtualenv was activated automatically
