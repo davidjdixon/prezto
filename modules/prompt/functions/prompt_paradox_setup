@@ -47,7 +47,7 @@ function prompt_paradox_end_segment {
 
 # AWS ACCOUNT NAME
 function aws_account_info {
-  if [[ "$AWS_ACCOUNT_NAME" && "$AWS_ACCOUNT_ROLE" ]]; then
+  if [[ ! -z "$AWS_ACCOUNT_NAME" && ! -z "$AWS_ACCOUNT_ROLE" ]]; then
     PARENT_ACCOUNT=${AWSUME_PROFILE:-"default"}
     prompt_paradox_start_segment 166 black
     if [[ "$PARENT_ACCOUNT" == "default" ]]; then
@@ -55,13 +55,13 @@ function aws_account_info {
     else
       prompt_paradox_start_segment 166 black "aws::${PARENT_ACCOUNT}.${AWS_ACCOUNT_NAME}:${AWS_ACCOUNT_ROLE}"
     fi
-  elif [[ "$AWSUME_PROFILE" && "$AWS_ACCESS_KEY_ID" && "$AWS_SECRET_ACCESS_KEY" ]]; then
+  elif [[ ! -z "$AWSUME_PROFILE" && ! -z "$AWS_ACCESS_KEY_ID" && ! -z "$AWS_SECRET_ACCESS_KEY" ]]; then
     prompt_paradox_start_segment 166 black "aws::${AWSUME_PROFILE}"
   fi
 }
 
 function ansible_vault_info {
-  if ([[ "$ANSIBLE_VAULT_PASSWORD_FILE" ]] || [[ "$ANSIBLE_VAULT_PASSWORD" ]]) && [[ "$ANSIBLE_VAULT_PASSWORD_LABEL" ]]; then
+  if ([[ ! -z "$ANSIBLE_VAULT_PASSWORD_FILE" ]] || [[ ! -z "$ANSIBLE_VAULT_PASSWORD" ]]) && [[ ! -z "$ANSIBLE_VAULT_PASSWORD_LABEL" ]]; then
     prompt_paradox_start_segment 242 253 "\uf023:${ANSIBLE_VAULT_PASSWORD_LABEL}"
   fi
 }
